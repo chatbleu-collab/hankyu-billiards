@@ -1,0 +1,91 @@
+/* 한큐 당구 웹 — 블랙 & 골드. 글꼴은 시스템 글꼴만(웹폰트 내려받기 없음). */
+:root{--bg:#06080d;--bg2:#0c1322;--text:#f7f3e8;--sub:#bfc4d0;--gold:#e9c46a;--gold-l:#fff0c2;--gold-d:#8c6420;--ink:#1a1206;--line:#2a3447;
+--font:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--serif:"Noto Serif KR","AppleMyungjo","Batang",serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overscroll-behavior:none;
+ -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overflow:hidden}
+body{background:radial-gradient(120% 70% at 50% -8%,rgba(255,227,168,.16),rgba(233,196,106,.05) 45%,transparent 70%),radial-gradient(90% 60% at 50% 110%,#0e1a33,transparent 70%),var(--bg)}
+#app{position:relative;max-width:480px;height:100%;height:100dvh;margin:0 auto}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button{font-family:var(--font)}
+.btn{min-height:56px;padding:6px 12px;border-radius:16px;border:1.5px solid #b58a35;color:var(--text);font-size:19px;font-weight:700;
+ background:linear-gradient(#202a3e,#0e1422 55%,#080c15);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);cursor:pointer;touch-action:manipulation;
+ transition:transform .08s}
+.btn:active{transform:scale(.95)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.gold,.btn.sel{color:var(--ink);border-color:#6e4a12;background:linear-gradient(#ffe7a6,#f0c862 30%,#c9952f 62%,#a87522 85%,#d7a946);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 4px rgba(0,0,0,.5)}
+.goldtext{font-family:var(--serif);font-weight:700;text-align:center;background:linear-gradient(#fff0c2,#e9c46a 30%,#d9a93f 55%,#8c6420 82%,#e9c46a);
+ -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.hero{font-size:40px;margin-top:2px}.hero2{font-size:30px;margin-top:12px}
+.sub{color:var(--sub);font-size:17px;line-height:1.45}
+.center{text-align:center}.spaced{letter-spacing:.12em;font-size:16px}
+.strong{font-size:19px;font-weight:700;line-height:1.4}
+.sect{color:var(--gold);font-weight:700;font-size:18px;margin:18px 0 8px;letter-spacing:.04em}
+.ornament{height:12px;margin:8px 0;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-l),var(--gold),transparent) center/100% 1.2px no-repeat;position:relative}
+.ornament::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;background:var(--gold-l);transform:translate(-50%,-50%) rotate(45deg)}
+.row{display:flex;gap:8px;align-items:center}
+.row>.grow{flex:1}.row>.grow2{flex:1.5}
+.choice{display:flex;gap:8px}.choice>.btn{flex:1;min-height:58px;padding:4px}
+/* 메뉴 */
+.menu .pages{flex:1;overflow-y:auto;touch-action:pan-y;-webkit-overflow-scrolling:touch}
+.page{padding:12px 20px 24px}
+.logo{height:140px}
+.record{margin:16px 0 10px;padding:14px;border-radius:16px;border:1.5px solid var(--gold);background:linear-gradient(#182238,#0d1424 60%,#090d17);text-align:center;font-size:18px}
+.page>.row{margin-top:8px}
+.menubottom{padding:10px 20px 12px;background:linear-gradient(transparent,rgba(6,8,13,.9) 30%,var(--bg))}
+.menubottom .start{width:100%;min-height:68px;font-size:26px;margin-bottom:8px}
+.picker .row{margin-bottom:10px}
+.btn.pm{width:72px;min-height:64px;font-size:30px}
+.pnum{flex:1;font-size:46px}
+.btn.chip{min-height:54px;font-size:18px}
+.card{margin-top:8px;padding:12px 16px;border-radius:16px;border:1.5px solid var(--line);background:rgba(18,26,42,.9);cursor:pointer}
+.card.on{border-color:var(--gold)}
+.cardhead{display:flex;align-items:center;gap:8px}.cname{flex:1;font-size:19px;font-weight:700}
+.cstat{color:var(--gold-l);font-size:16px;margin-top:4px}
+.badge{display:inline-block;padding:2px 10px 3px;border-radius:14px;background:#3a4255;color:var(--text);font-size:16px;font-weight:700;white-space:nowrap}
+.badge.gold{background:var(--gold);color:var(--ink)}
+/* 대화상자 */
+.dim{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:10;padding:12px;animation:fade .2s}
+.dim.light{background:rgba(0,0,0,.25)}
+.panel{width:min(94vw,452px);max-height:92vh;overflow-y:auto;touch-action:pan-y;padding:20px 22px 22px;border-radius:22px;border:2px solid var(--gold);
+ background:linear-gradient(#182238,#0d1424 60%,#090d17);box-shadow:0 8px 30px rgba(0,0,0,.8),inset 0 0 0 5px rgba(233,196,106,.12);animation:pop .26s cubic-bezier(.2,.8,.3,1)}
+.ptitle{font-size:27px}
+.pbody{display:flex;flex-direction:column;gap:10px}
+.pbody>.btn{width:100%}
+.pre{white-space:pre-wrap;font-size:17px;line-height:1.5}
+.big{font-size:44px}
+.stat{display:flex}.stat>div{flex:1;text-align:center}.stat .v{font-size:20px;font-weight:700}.stat .k{color:var(--sub);font-size:17px}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:18px;line-height:1.4}
+.step .num{flex:none;width:36px;height:36px;border-radius:18px;background:var(--gold);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center}
+.tiplabel{font-size:24px}
+.dialbox{width:100%}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}}
+/* 게임 */
+.game .top{padding:2px 8px 0 12px;height:52px}
+.gtitle{flex:1;color:var(--gold);font-weight:700;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn.small{min-height:48px;padding:0 10px;font-size:17px}.btn.sq{width:54px;font-size:22px}
+.boardbox{margin:3px 8px 0;height:88px}
+.tablearea{flex:1;position:relative;min-height:0}
+.tablearea>canvas{position:absolute;inset:0}
+.btn.frozen{position:absolute;top:26px;left:50%;transform:translateX(-60%);min-height:52px;font-size:18px;z-index:2}
+.game .bottom{padding:2px 8px 6px;height:76px}
+.spinbox{width:76px;height:66px;flex:none}
+.btn.dir{width:62px;min-height:66px;font-size:24px;flex:none;padding:0}
+.btn.shoot{flex:1;min-height:66px;font-size:28px}
+/* 레슨 */
+.lesson .top{padding:4px 12px 0 14px}.ltitle{flex:1;text-align:left;font-size:26px}
+.lesson .tabs{padding:6px 10px 0}.btn.tab{min-height:52px;font-size:16px;padding:0 2px}
+.lcontent{flex:1;min-height:0;display:flex;flex-direction:column;padding:8px 10px 0}
+.lcontent>.scroll{flex:1;overflow-y:auto;touch-action:pan-y;display:flex;flex-direction:column;gap:8px;padding-bottom:12px}
+.lcontent>.col{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px}
+.ltable.fixed{height:460px;flex:none}.ltable.grow{flex:1;min-height:200px;position:relative}
+.ltable.grow>canvas{position:absolute;inset:0}
+.formula{font-size:24px;margin:6px 0}.para{font-size:18px;line-height:1.5}
+.reading,.result{color:var(--gold-l);font-weight:700;font-size:18px;text-align:center}
+.pct{flex:1;font-size:24px}
+.question{font-size:24px;font-weight:700;line-height:1.4}.goldsmall{color:var(--gold);font-size:17px}
+.btn.answer{min-height:64px;font-size:24px}
+.lesson .nav{padding:8px 10px 10px}
+.lesson .nav>.btn{min-height:60px}

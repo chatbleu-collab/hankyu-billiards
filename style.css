@@ -90,3 +90,4 @@ button{font-family:var(--font)}
 .btn.answer{min-height:64px;font-size:24px}
 .lesson .nav{padding:8px 10px 10px}
 .lesson .nav>.btn{min-height:60px}
+.helpfig{height:340px;position:relative}.helpfig>canvas{position:absolute;inset:0}

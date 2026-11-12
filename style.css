@@ -64,8 +64,9 @@ button{font-family:var(--font)}
 @keyframes fade{from{opacity:0}}
 /* 게임 */
 .game .top{padding:2px 8px 0 12px;height:52px}
-.gtitle{flex:1;color:var(--gold);font-weight:700;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.btn.small{min-height:48px;padding:0 10px;font-size:17px}.btn.sq{width:54px;font-size:22px}
+.gtitle{flex:1;min-width:0;color:var(--gold);font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.game .top{gap:5px}
+.btn.small{min-height:48px;padding:0 8px;font-size:16px;flex:none}.btn.sq{width:50px;font-size:22px}
 .boardbox{margin:3px 8px 0;height:88px}
 .tablearea{flex:1;position:relative;min-height:0}
 .tablearea>canvas{position:absolute;inset:0}
